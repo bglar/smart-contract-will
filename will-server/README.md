@@ -1,6 +1,15 @@
 # smart-contract-will server
 
-### Folder structure
+
+#### setting up Ganache
+
+Download and install the package for your operating system from https://www.trufflesuite.com/ganache
+
+
+
+npm run compile
+
+### src Folder structure
 ```
 .
 ├── contracts

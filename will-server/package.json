@@ -1,5 +1,5 @@
 {
-  "name": "drizzle-vue-box",
+  "name": "smart-will-server",
   "version": "0.0.1",
   "description": "",
   "main": "truffle-config.js",
@@ -7,17 +7,23 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/truffle/build/cli.bundled.js test",
+    "compile": "./node_modules/truffle/build/cli.bundled.js compile",
+    "migrate": "./node_modules/truffle/build/cli.bundled.js migrate",
+    "migrate:reset": "./node_modules/truffle/build/cli.bundled.js migrate --reset",
+    "console": "./node_modules/truffle/build/cli.bundled.js console"
   },
   "keywords": [],
-  "author": {
-    "name": "Amal Sudama",
-    "email": "amal@trufflesuite.com",
-    "url": "http://github.com/truffle-box/drizzle-vue-box"
-  },
   "license": "ISC",
   "dependencies": {
-    "openzeppelin-solidity": "^2.1.1",
-    "truffle": "^5.2.2"
+    "bootstrap": "4.1.3",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "chai-bignumber": "^2.0.2",
+    "lite-server": "^2.3.0",
+    "nodemon": "^1.17.3",
+    "truffle": "5.2.2",
+    "truffle-contract": "3.0.6",
+    "openzeppelin-solidity": "^2.1.1"
   }
 }
