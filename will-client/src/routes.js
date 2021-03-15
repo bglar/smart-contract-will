@@ -1,3 +1,4 @@
+import Beneficiaries from "./components/Beneficiaries"
 import Home from "./components/Home"
 import ViewWill from "./components/ViewWill"
 import WillsList from "./components/WillsList"
@@ -43,7 +44,7 @@ export const publicRoutes =[
     },
     {
       path:'/beneficiaries',
-      component: WillsList
+      component: Beneficiaries
     },
     {
       path:'/document/:docId',

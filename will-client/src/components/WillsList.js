@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import React, { useState,useEffect } from 'react';
 import { getUserFiles } from '../context/actions';
+import moment from 'moment'
 
 const WillsList = () => {
     const [files, setFiles] = useState([]);
@@ -38,7 +39,7 @@ const WillsList = () => {
                     <th scope="row">{index+1}</th>
                     <td>{file.smartId}</td>
                     <td>{`v${index+1}`}</td>
-                    <td>{file.createdOn}</td>
+                    <td>{moment(file.createdOn).format('MMMM Do YYYY, h:mm:ss a')}</td>
                     <td>
                         <Link to={`/document/${file.smartId}`} className="btn btn-primary ">
                             <span className="text">View</span>

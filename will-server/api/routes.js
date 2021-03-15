@@ -227,12 +227,13 @@ function routes(app, dbClient, willContract, ethAccounts) {
      app.post("/beneficiaries/:userId", (req, res) => {
 
       const userId = req.params.userId;
+      const email = req.params.email;
 
       const data = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         nationalId: req.body.nationalId,
-        email: req.body.email,
+        email: email,
         testator:userId,
         createdOn: Date.now(),
         updatedOn: Date.now()
