@@ -17,6 +17,7 @@ function routes(app, dbClient, willContract, ethAccounts) {
 
   const usersModel = dbClient.collection("users");
   const documentsModel = dbClient.collection("documents");
+  const beneficiariesModel = dbClient.collection("beneficiaries");
 
   /**
    * POST /register
@@ -218,6 +219,83 @@ function routes(app, dbClient, willContract, ethAccounts) {
         res.status(400).json({"status":"Failed", "reason":"wrong input"})
     }
   })
+
+    /**
+   * POST /beneficiaries
+   * Add a beneficiary user to the platform.
+   */
+     app.post("/beneficiaries/:userId", (req, res) => {
+
+      const userId = req.params.userId;
+
+      const data = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        nationalId: req.body.nationalId,
+        email: req.body.email,
+        testator:userId,
+        createdOn: Date.now(),
+        updatedOn: Date.now()
+      }
+  
+      if (req.body.email) {
+        beneficiariesModel.findOne({email}, (err, doc) => {
+          if (doc) {
+            res.status(400).json({
+              "status":"Failed", 
+              "reason":"Beneficiary already added"
+            })
+          } else {
+            beneficiariesModel.insertOne(data).then(item => {
+              res.status(201).json({
+                "status": "success",
+                "id": item.ops[0]._id
+              });
+            })
+            .catch(err => {
+              res.status(500).json({
+                "status":"Failed", 
+                "reason": "Saving to mongoDb error."
+              });
+            })
+          }
+        })
+      } else {
+        res.status(400).json({
+          "status":"Failed", 
+          "reason":"wrong input"
+        })
+      }
+    });
+
+
+
+      /**
+   * GET /beneficiaries/:userId
+   * We can remove the `userId` path parameter if we have an authenticated user.
+   * Get a list of all the beneficiaries that belong to this user.
+   */
+  app.get("/beneficiaries/:userId", (req, res) => {
+    const userId = req.params.userId;
+
+    if (userId) {
+      beneficiariesModel.find({testator: userId})
+        .toArray()
+        .then(data => {
+          res.json({"status":"success", data});
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({
+            "status":"Failed", 
+            "reason": "fetching from mongoDb error."
+          });
+        });
+    } else {
+        res.status(400).json({"status":"Failed", "reason":"wrong input"});
+    }
+})
+  
 }
 
 module.exports = routes;
