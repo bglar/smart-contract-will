@@ -5,6 +5,10 @@
 
 Download and install the package for your operating system from https://www.trufflesuite.com/ganache
 
+### Running the IPFS Server
+
+node_modules/ipfs/src/cli.js daemon
+
 ### Install Dependencies
 
 Navigate to project directory and run this commands to install server dependencies::

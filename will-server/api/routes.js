@@ -227,7 +227,7 @@ function routes(app, dbClient, willContract, ethAccounts) {
      app.post("/beneficiaries/:userId", (req, res) => {
 
       const userId = req.params.userId;
-      const email = req.params.email;
+      const email = req.body.email;
 
       const data = {
         firstName: req.body.firstName,
@@ -269,9 +269,7 @@ function routes(app, dbClient, willContract, ethAccounts) {
       }
     });
 
-
-
-      /**
+  /**
    * GET /beneficiaries/:userId
    * We can remove the `userId` path parameter if we have an authenticated user.
    * Get a list of all the beneficiaries that belong to this user.
@@ -295,7 +293,44 @@ function routes(app, dbClient, willContract, ethAccounts) {
     } else {
         res.status(400).json({"status":"Failed", "reason":"wrong input"});
     }
-})
+  });
+
+    /**
+   * GET /beneficiaries/:userId
+   * We can remove the `userId` path parameter if we have an authenticated user.
+   * Get a list of all the beneficiaries that belong to this user.
+   */
+  app.post("/notifications/:userId", (req, res) => {
+    const userId = req.params.userId;
+    if (userId) {
+      usersModel.find({_id: userId})
+        .toArray()
+        .then(data => {
+          res.json({"status":"success", data: {
+            "_id": "604e3a8be7ade2e5a0c24902",
+            "firstName": "Brian",
+            "lastName": "Glar",
+            "otherNames": "Boris J",
+            "document": {
+                "value": "BK086738236",
+                "docType": "PASSPORT"
+            },
+            "password": "brian",
+            "email": "brian@brian.com",
+        }});
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({
+            "status":"Failed", 
+            "reason": "fetching from mongoDb error."
+          });
+        });
+    } else {
+        res.status(400).json({"status":"Failed", "reason":"wrong input"});
+    }
+  });
+
   
 }
 
