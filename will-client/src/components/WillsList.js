@@ -49,7 +49,7 @@ const WillsList = () => {
                         </td>
 
                     </tr>
-                )) : <tr><td><p>You have not uploaded any will yet. Click <Link to="/" >here</Link> to upload one.</p></td></tr> }
+                )) : <tr><td><p> You have not uploaded any will yet. Click <Link to="/" >here</Link> to upload one. </p></td></tr> }
                     
                   
                    
